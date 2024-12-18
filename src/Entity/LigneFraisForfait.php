@@ -16,7 +16,7 @@ class LigneFraisForfait
     #[ORM\Column]
     private ?int $quantite = null;
 
-    #[ORM\ManyToOne(inversedBy: 'lignfraisforfait')]
+    #[ORM\ManyToOne(inversedBy: 'ligneFraisForfaits')]
     private ?FicheFrais $ficheFrais = null;
 
     #[ORM\ManyToOne(inversedBy: 'ligneFraisForfaits')]

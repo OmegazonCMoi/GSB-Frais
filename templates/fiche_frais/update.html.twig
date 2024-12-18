@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FicheFrais{% endblock %}
+
+{% block body %}
+
+    <div class="max-w-2xl mx-auto p-6">
+        <h1 class="text-3xl font-extrabold text-gray-100 mb-6">FicheFrais</h1>
+
+        {{ form_start(formFraisForfait, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid gap-6">
+            <div>
+                {{ form_label(formFraisForfait.km, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisForfait.km, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisForfait.km) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisForfait.km) }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form_label(formFraisForfait.nuitees, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisForfait.nuitees, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisForfait.nuitees) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisForfait.nuitees) }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form_label(formFraisForfait.repas, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisForfait.repas, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisForfait.repas) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisForfait.repas) }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form_label(formFraisForfait.etape, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisForfait.etape, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisForfait.etape) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisForfait.etape) }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button type="submit" class="px-6 py-2 text-black bg-white rounded-lg shadow-md hover:bg-neutral-200">
+                Envoyer
+            </button>
+        </div>
+
+        {{ form_end(formFraisForfait) }}
+
+        {{ form_start(formFraisHorsForfait, {'attr': {'class': 'space-y-6'}}) }}
+
+        <div class="grid gap-6">
+            <div>
+                {{ form_label(formFraisHorsForfait.date, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisHorsForfait.date, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisHorsForfait.date) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisHorsForfait.date) }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form_label(formFraisHorsForfait.montant, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisHorsForfait.montant, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisHorsForfait.montant) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisHorsForfait.montant) }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form_label(formFraisHorsForfait.motif, null, {'label_attr': {'class': 'block text-sm font-semibold text-gray-200'}}) }}
+                {{ form_widget(formFraisHorsForfait.motif, {'attr': {'class': 'mt-2 block w-full px-4 py-2 text-white text-sm border border-neutral-700 bg-neutral-800 rounded-lg shadow-sm'}}) }}
+                {% if form_errors(formFraisHorsForfait.motif) %}
+                    <p class="mt-1 text-sm text-red-600">{{ form_errors(formFraisHorsForfait.motif) }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6">
+            <button type="submit" class="px-6 py-2 text-black bg-white rounded-lg shadow-md hover:bg-neutral-200">
+                Envoyer
+            </button>
+        </div>
+
+        {{ form_end(formFraisHorsForfait) }}
+    </div>
+
+{% endblock %}

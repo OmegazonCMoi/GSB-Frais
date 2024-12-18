@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="dark:bg-neutral-900">
+<!-- Navbar -->
+<nav class="text-white p-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-around">
+        <!-- Left: Application Name -->
+        <div class="text-xl font-semibold">
+            <a href="/" class="hover:text-blue-300">GSB-Frais</a>
+        </div>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+        <!-- Center: Navigation Links -->
+        <div class="space-x-4 hidden md:flex bg-neutral-800 bg-opacity-35 rounded-lg">
+            <a href="/" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/users' %}bg-neutral-700 rounded-lg{% endif %}">Users</a>
+            <a href="{{ path('app_fiche_frais_index') }}" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/fiche/frais' %}bg-neutral-700 rounded-lg{% endif %}">Fiche Frais</a>
+            <a href="/" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/profile' %}bg-neutral-700 rounded-lg{% endif %}">Profile</a>
+        </div>
+
+
+        <!-- Right: Auth Links -->
+        <div class="space-x-2 hidden md:flex items-center bg-neutral-800 bg-opacity-35 rounded-lg">
+            <a href="/login" class="hover:bg-neutral-800 px-4 py-2 rounded-md">Connexion</a>
+            <p>|</p>
+            <a href="/register" class="hover:bg-neutral-800 px-4 py-2 rounded-md">Inscription</a>
+        </div>
+    </div>
+</nav>
+
+{% block body %}{% endblock %}
+</body>
 </html>

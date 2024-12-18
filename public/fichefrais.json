@@ -6,8 +6,7 @@
 {"idVisiteur":"a131","mois":"202405","nbJustificatifs":"7","montantValide":"2121.66","dateModif":"2024-07-08","idEtat":"RB"},
 {"idVisiteur":"a131","mois":"202406","nbJustificatifs":"3","montantValide":"2868.70","dateModif":"2024-08-01","idEtat":"RB"},
 {"idVisiteur":"a131","mois":"202407","nbJustificatifs":"0","montantValide":"2553.43","dateModif":"2024-08-03","idEtat":"VA"},
-{"idVisiteur":"a131","mois":"202408","nbJustificatifs":"0","montantValide":"0.00","dateModif":"2024-09-20","idEtat":"CL"},
-{"idVisiteur":"a131","mois":"202409","nbJustificatifs":"0","montantValide":"0.00","dateModif":"2024-09-20","idEtat":"CR"},
+{"idVisiteur":"a131","mois":"202408","nbJustificatifs":"0","montantValide":"0.00","dateModif":"2024-08-06","idEtat":"CR"},
 {"idVisiteur":"a17","mois":"202401","nbJustificatifs":"1","montantValide":"1313.24","dateModif":"2024-03-04","idEtat":"RB"},
 {"idVisiteur":"a17","mois":"202402","nbJustificatifs":"10","montantValide":"3917.40","dateModif":"2024-04-07","idEtat":"RB"},
 {"idVisiteur":"a17","mois":"202403","nbJustificatifs":"11","montantValide":"3720.00","dateModif":"2024-05-05","idEtat":"RB"},
@@ -31,8 +30,7 @@
 {"idVisiteur":"a93","mois":"202405","nbJustificatifs":"3","montantValide":"1556.00","dateModif":"2024-07-03","idEtat":"RB"},
 {"idVisiteur":"a93","mois":"202406","nbJustificatifs":"0","montantValide":"5104.18","dateModif":"2024-08-06","idEtat":"RB"},
 {"idVisiteur":"a93","mois":"202407","nbJustificatifs":"11","montantValide":"3620.61","dateModif":"2024-08-06","idEtat":"VA"},
-{"idVisiteur":"a93","mois":"202408","nbJustificatifs":"1","montantValide":"0.00","dateModif":"2024-09-13","idEtat":"CL"},
-{"idVisiteur":"a93","mois":"202409","nbJustificatifs":"0","montantValide":"0.00","dateModif":"2024-09-13","idEtat":"CR"},
+{"idVisiteur":"a93","mois":"202408","nbJustificatifs":"1","montantValide":"0.00","dateModif":"2024-08-02","idEtat":"CR"},
 {"idVisiteur":"b13","mois":"202401","nbJustificatifs":"1","montantValide":"2554.92","dateModif":"2024-03-03","idEtat":"RB"},
 {"idVisiteur":"b13","mois":"202402","nbJustificatifs":"6","montantValide":"4733.46","dateModif":"2024-04-05","idEtat":"RB"},
 {"idVisiteur":"b13","mois":"202403","nbJustificatifs":"7","montantValide":"908.18","dateModif":"2024-05-04","idEtat":"RB"},
@@ -218,4 +216,3 @@
 {"idVisiteur":"f4","mois":"202407","nbJustificatifs":"7","montantValide":"2892.07","dateModif":"2024-08-04","idEtat":"VA"},
 {"idVisiteur":"f4","mois":"202408","nbJustificatifs":"4","montantValide":"0.00","dateModif":"2024-08-07","idEtat":"CR"}
 ]
-

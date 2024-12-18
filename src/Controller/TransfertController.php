@@ -38,7 +38,7 @@ class TransfertController extends AbstractController
             $user->setOldId($userData['id']);
             $user->setNom($userData['nom']);
             $user->setPrenom($userData['prenom']);
-            $user->setEmail($userData['nom'].'.'.$userData['prenom'].'@gsb.fr');
+            $user->setEmail(strtolower($userData['nom'] . '.' . $userData['prenom'] . '@gsb.fr'));
             $user->setLogin($userData['login']);
             $user->setAdresse($userData['adresse']);
             $user->setCp($userData['cp']);

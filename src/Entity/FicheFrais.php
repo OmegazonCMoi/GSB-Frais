@@ -35,24 +35,20 @@ class FicheFrais
     #[ORM\ManyToOne(inversedBy: 'ficheFrais')]
     private ?Etat $etat = null;
 
-    #[ORM\OneToMany(targetEntity: LigneFraisForfait::class, mappedBy: 'ficheFrais')]
-    private Collection $lignfraisforfait;
-
     /**
      * @var Collection<int, LigneFraisForfait>
      */
-    #[ORM\OneToMany(targetEntity: LigneFraisForfait::class, mappedBy: 'fichefrais')]
+    #[ORM\OneToMany(targetEntity: LigneFraisForfait::class, mappedBy: 'ficheFrais', fetch: 'EAGER')]
     private Collection $ligneFraisForfaits;
 
     /**
      * @var Collection<int, LigneFraisHorsForfait>
      */
-    #[ORM\OneToMany(targetEntity: LigneFraisHorsForfait::class, mappedBy: 'fichefrais')]
+    #[ORM\OneToMany(targetEntity: LigneFraisHorsForfait::class, mappedBy: 'fichefrais', fetch: 'EAGER')]
     private Collection $ligneFraisHorsForfaits;
 
     public function __construct()
     {
-        $this->lignfraisforfait = new ArrayCollection();
         $this->ligneFraisForfaits = new ArrayCollection();
         $this->ligneFraisHorsForfaits = new ArrayCollection();
     }
@@ -137,27 +133,27 @@ class FicheFrais
     /**
      * @return Collection<int, LigneFraisForfait>
      */
-    public function getLignfraisforfait(): Collection
+    public function getLignefraisforfait(): Collection
     {
-        return $this->lignfraisforfait;
+        return $this->ligneFraisForfait;
     }
 
-    public function addLignfraisforfait(LigneFraisForfait $lignfraisforfait): static
+    public function addLignefraisforfait(LigneFraisForfait $ligneFraisForfait): static
     {
-        if (!$this->lignfraisforfait->contains($lignfraisforfait)) {
-            $this->lignfraisforfait->add($lignfraisforfait);
-            $lignfraisforfait->setFicheFrais($this);
+        if (!$this->lignefraisforfait->contains($ligneFraisForfait)) {
+            $this->lignefraisforfait->add($ligneFraisForfait);
+            $ligneFraisForfait->setFicheFrais($this);
         }
 
         return $this;
     }
 
-    public function removeLignfraisforfait(LigneFraisForfait $lignfraisforfait): static
+    public function removeLignefraisforfait(LigneFraisForfait $ligneFraisForfait): static
     {
-        if ($this->lignfraisforfait->removeElement($lignfraisforfait)) {
+        if ($this->ligneFraisForfait->removeElement($ligneFraisForfait)) {
             // set the owning side to null (unless already changed)
-            if ($lignfraisforfait->getFicheFrais() === $this) {
-                $lignfraisforfait->setFicheFrais(null);
+            if ($ligneFraisForfait->getFicheFrais() === $this) {
+                $ligneFraisForfait->setFicheFrais(null);
             }
         }
 
@@ -170,28 +166,6 @@ class FicheFrais
     public function getLigneFraisForfaits(): Collection
     {
         return $this->ligneFraisForfaits;
-    }
-
-    public function addLigneFraisForfait(LigneFraisForfait $ligneFraisForfait): static
-    {
-        if (!$this->ligneFraisForfaits->contains($ligneFraisForfait)) {
-            $this->ligneFraisForfaits->add($ligneFraisForfait);
-            $ligneFraisForfait->setFichefrais($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLigneFraisForfait(LigneFraisForfait $ligneFraisForfait): static
-    {
-        if ($this->ligneFraisForfaits->removeElement($ligneFraisForfait)) {
-            // set the owning side to null (unless already changed)
-            if ($ligneFraisForfait->getFichefrais() === $this) {
-                $ligneFraisForfait->setFichefrais(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
