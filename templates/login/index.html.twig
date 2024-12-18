@@ -1,0 +1,75 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="flex items-center justify-center mt-40">
+        <div class="w-full max-w-md bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8">
+            <h1 class="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 mb-6 text-center">Login</h1>
+
+            {% if error %}
+                <div class="text-red-500 text-center mb-4">
+                    <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                </div>
+            {% endif %}
+
+            <form action="{{ path('app_login') }}" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-neutral-700 dark:text-neutral-300 mb-2">Email:</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required
+                           class="block w-full p-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-neutral-50 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
+                </div>
+
+                <div class="mb-6 relative">
+                    <label for="password" class="block text-neutral-700 dark:text-neutral-300 mb-2">Password:</label>
+                    <input type="password" id="password" name="_password" required
+                           class="block w-full p-3 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-neutral-50 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400">
+
+                    <!-- Toggle button for password visibility -->
+                    <button type="button" id="togglePassword" class="absolute right-3 top-10 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100">
+                        <!-- Eye Open SVG -->
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye mt-[0.35em]">
+                            <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+
+                        <!-- Eye Closed SVG (hidden by default) -->
+                        <svg id="eyeClosedIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-closed hidden mt-[0.35em]">
+                            <path d="m15 18-.722-3.25"></path>
+                            <path d="M2 8a10.645 10.645 0 0 0 20 0"></path>
+                            <path d="m20 15-1.726-2.05"></path>
+                            <path d="m4 15 1.726-2.05"></path>
+                            <path d="m9 18 .722-3.25"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                {# Optional: Redirect after login (target path) #}
+                {# <input type="hidden" name="_target_path" value="/account"> #}
+
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle the visibility of the password and switch SVG icons
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordField = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyeIcon');
+            var eyeClosedIcon = document.getElementById('eyeClosedIcon');
+
+            // Toggle password visibility and switch SVG icons
+            if (passwordField.type === 'password') {
+                passwordField.setAttribute('type', 'text');
+                eyeIcon.classList.add('hidden');
+                eyeClosedIcon.classList.remove('hidden');
+            } else {
+                passwordField.setAttribute('type', 'password');
+                eyeIcon.classList.remove('hidden');
+                eyeClosedIcon.classList.add('hidden');
+            }
+        });
+    </script>
+{% endblock %}
