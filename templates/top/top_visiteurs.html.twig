@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {# Formulaire de sélection du mois #}
+    <div class="container mx-auto py-6 px-4 bg-neutral-900 text-neutral-100">
+        <form method="get" action="{{ path('top_visiteurs') }}" class="flex justify-center items-center space-x-4">
+            <label for="mois" class="text-lg font-medium">Choisir un mois :</label>
+            <select name="mois" id="mois" onchange="this.form.submit()" class="px-4 py-2 border rounded-md text-lg bg-neutral-800 text-neutral-50">
+                {% for month in ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05'] %}
+                    <option value="{{ month }}" {% if mois == month %}selected{% endif %}>{{ month }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    {# Tableau des résultats #}
+    <div class="text-center mt-8">
+        <h2 class="text-2xl font-semibold mb-4 text-neutral-50">Top 3 des visiteurs pour le mois {{ mois }}</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-neutral-600 mx-auto bg-neutral-800 text-neutral-100">
+                <thead class="bg-neutral-700">
+                <tr>
+                    <th class="px-4 py-2 text-left">Nom</th>
+                    <th class="px-4 py-2 text-left">Prénom</th>
+                    <th class="px-4 py-2 text-left">Montant Validé</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for visiteur in topVisiteurs %}
+                    <tr class="border-b transition-colors hover:bg-neutral-700">
+                        <td class="px-4 py-2 text-left">{{ visiteur.nom }}</td>
+                        <td class="px-4 py-2 text-left">{{ visiteur.prenom }}</td>
+                        <td class="px-4 py-2 text-left">{{ visiteur.totalFrais | number_format(2, ',', ' ') }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
