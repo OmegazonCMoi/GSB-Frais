@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Frais Informations{% endblock %}
+
+{% block body %}
+
+    <div id="toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 space-y-4 z-50">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="toast p-4 text-white {{ type == 'success' ? 'bg-green-600' : 'bg-red-600' }} rounded-lg shadow-md flex items-center justify-between" role="alert">
+                    <span>{{ message }}</span>
+                    <button onclick="this.parentElement.remove()" class="ml-4 text-white font-bold">&times;</button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-6 bg-neutral-900 p-6 shadow-md rounded-lg text-neutral-100">
+        <h1 class="text-2xl font-bold mb-6 text-center">Détail de la Fiche de Frais</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div><strong>Mois :</strong> {{ fiche_frais.mois|date('Y-m') }}</div>
+            <div><strong>Justificatifs :</strong> {{ fiche_frais.nbJustificatifs }}</div>
+            <div><strong>Montant Validé :</strong> {{ fiche_frais.montantValid }} €</div>
+            <div><strong>Dernière modif :</strong> {{ fiche_frais.dateModif|date('Y-m-d H:i') }}</div>
+            <div><strong>État :</strong> {{ fiche_frais.etat.libelle }}</div>
+            <div><strong>Utilisateur :</strong> {{ fiche_frais.User.nom }} {{ fiche_frais.User.prenom }}</div>
+        </div>
+    </div>
+
+    <div class="p-4 bg-neutral-900 shadow-md rounded-lg max-w-3xl mx-auto my-6 text-neutral-100">
+        <h2 class="text-xl font-semibold mb-4">Frais Forfait</h2>
+        <table class="w-full table-auto text-left border border-neutral-700">
+            <thead>
+            <tr class="bg-neutral-800">
+                <th class="px-4 py-2">Libellé</th>
+                <th class="px-4 py-2">Quantité</th>
+                <th class="px-4 py-2">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ligne in fiche_frais.ligneFraisForfaits %}
+                <tr class="border-t border-neutral-700">
+                    <td class="px-4 py-2">{{ ligne.fraisForfait.libelle }}</td>
+                    <td class="px-4 py-2">{{ ligne.quantite }}</td>
+                    <td class="px-4 py-2">{{ (ligne.quantite * ligne.fraisForfait.montant)|number_format(2, '.', ',') }} €</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="px-4 py-2 text-center text-neutral-500">Aucune ligne de frais forfait.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="p-4 bg-neutral-900 shadow-md rounded-lg max-w-3xl mx-auto my-6 text-neutral-100">
+        <h2 class="text-xl font-semibold mb-4">Frais Hors Forfait</h2>
+        <table class="w-full table-auto text-left border border-neutral-700">
+            <thead>
+            <tr class="bg-neutral-800">
+                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Libellé</th>
+                <th class="px-4 py-2">Montant</th>
+                <th class="px-4 py-2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set maxVisible = 3 %}
+            {% for ligne in fiche_frais.ligneFraisHorsForfaits %}
+                <tr class="border-t border-neutral-700 hors-forfait-row {% if loop.index > maxVisible %}hidden{% endif %}">
+                    <td class="px-4 py-2">{{ ligne.date|date('Y-m-d') }}</td>
+                    <td class="px-4 py-2">{{ ligne.libelle }}</td>
+                    <td class="px-4 py-2">{{ ligne.montant|number_format(2, '.', ',') }} €</td>
+                    <td class="px-4 py-2">
+                        <form method="post" action="{{ path('app_comptable_fiche_update', {'id': ligne.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ligne.id) }}">
+                            <button type="submit" class="{{ ligne.isValidate ? 'text-red-400 hover:text-red-600' : 'text-green-400 hover:text-green-600' }} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-{{ ligne.isValidate ? 'red' : 'green' }}-500">
+                                {{ ligne.isValidate ? 'Refuser' : 'Accepter' }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="px-4 py-2 text-center text-neutral-500">Aucune ligne de frais hors forfait.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if fiche_frais.ligneFraisForfaits|length > maxVisible %}
+            <div class="text-center mt-4">
+                <button id="toggleBtn" type="button"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Afficher plus
+                </button>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-6 bg-neutral-900 p-6 shadow-md rounded-lg text-neutral-100">
+        <h2 class="text-xl font-semibold mb-4">Modifier la fiche</h2>
+
+        {{ form_start(form) }}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{ form_row(form.Etat) }}
+            {{ form_row(form.montantValid) }}
+            {{ form_row(form.nbJustificatifs) }}
+            {{ form_row(form.dateModif) }}
+        </div>
+
+        <div class="mt-6">
+            {{ form_widget(form.submit, {
+                'attr': {
+                    'class': 'w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-4'
+                }
+            }) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    <script>
+        const btn = document.getElementById('toggleBtn');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.hors-forfait-row').forEach(row => row.classList.remove('hidden'));
+                btn.style.display = 'none';
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(() => {
+                document.querySelectorAll(".toast").forEach(toast => toast.remove());
+            }, 5000);
+        });
+    </script>
+
+{% endblock %}

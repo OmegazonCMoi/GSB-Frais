@@ -35,6 +35,9 @@ class FicheFrais
     #[ORM\ManyToOne(inversedBy: 'ficheFrais')]
     private ?Etat $etat = null;
 
+    #[ORM\Column]
+    private ?bool $valide = null;
+
     /**
      * @var Collection<int, LigneFraisForfait>
      */
@@ -133,12 +136,12 @@ class FicheFrais
     /**
      * @return Collection<int, LigneFraisForfait>
      */
-    public function getLignefraisforfait(): Collection
+    public function getLigneFraisForfaits(): Collection
     {
-        return $this->ligneFraisForfait;
+        return $this->ligneFraisForfaits;
     }
 
-    public function addLignefraisforfait(LigneFraisForfait $ligneFraisForfait): static
+    public function addLigneFraisForfaits(LigneFraisForfait $ligneFraisForfait): static
     {
         if (!$this->lignefraisforfait->contains($ligneFraisForfait)) {
             $this->lignefraisforfait->add($ligneFraisForfait);
@@ -148,7 +151,7 @@ class FicheFrais
         return $this;
     }
 
-    public function removeLignefraisforfait(LigneFraisForfait $ligneFraisForfait): static
+    public function removeLigneFraisForfaits(LigneFraisForfait $ligneFraisForfait): static
     {
         if ($this->ligneFraisForfait->removeElement($ligneFraisForfait)) {
             // set the owning side to null (unless already changed)
@@ -158,14 +161,6 @@ class FicheFrais
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, LigneFraisForfait>
-     */
-    public function getLigneFraisForfaits(): Collection
-    {
-        return $this->ligneFraisForfaits;
     }
 
     /**
@@ -194,6 +189,18 @@ class FicheFrais
                 $ligneFraisHorsForfait->setFichefrais(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isValide(): ?bool
+    {
+        return $this->valide;
+    }
+
+    public function setValide(bool $valide): static
+    {
+        $this->valide = $valide;
 
         return $this;
     }

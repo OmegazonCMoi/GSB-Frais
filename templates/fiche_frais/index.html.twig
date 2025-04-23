@@ -46,23 +46,23 @@
                     </tr>
                     </thead>
                     <tbody class="[&_tr:last-child]:border-0">
-                    <tr class="border-b transition-colors hover:bg-muted/50">
-                        <td class="p-2 align-middle">{{ fiche_frais.id }}</td>
-                        <td class="p-2 align-middle">
-                            {{ fiche_frais.mois ? fiche_frais.mois|date('Y-m') : '' }}
-                        </td>
-                        <td class="p-2 align-middle">{{ fiche_frais.nbJustificatifs }}</td>
-                        <td class="p-2 align-middle">{{ fiche_frais.montantValid }}</td>
-                        <td class="p-2 align-middle">
-                            {{ fiche_frais.dateModif ? fiche_frais.dateModif|date('Y-m-d H:i') : '' }}
-                        </td>
-                        <td class="p-2 align-middle space-x-2">
-                            <a href="{{ path('app_fiche_frais_edit', {'id': fiche_frais.id}) }}"
-                               class="text-yellow-500 hover:underline">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
+                        <tr class="border-b transition-colors hover:bg-muted/50">
+                            <td class="p-2 align-middle">{{ fiche_frais.id }}</td>
+                            <td class="p-2 align-middle">
+                                {{ fiche_frais.mois ? fiche_frais.mois|date('Y-m') : '' }}
+                            </td>
+                            <td class="p-2 align-middle">{{ fiche_frais.nbJustificatifs }}</td>
+                            <td class="p-2 align-middle">{{ fiche_frais.montantValid }}</td>
+                            <td class="p-2 align-middle">
+                                {{ fiche_frais.dateModif ? fiche_frais.dateModif|date('Y-m-d H:i') : '' }}
+                            </td>
+                            <td class="p-2 align-middle space-x-2">
+                                <a href="{{ path('app_fiche_frais_edit', {'id': fiche_frais.id}) }}"
+                                   class="text-yellow-500 hover:underline">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                     <tfoot class="border-t bg-muted/50 font-medium [&>tr]:last:border-b-0">
                     <tr>
@@ -72,7 +72,7 @@
                 </table>
             </div>
 
-            <table class="w-full text-sm caption-bottom mt-6">
+            <table class="w-full text-sm caption-bottom">
                 <thead class="[&_tr]:border-b">
                 <tr>
                     <th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
@@ -81,9 +81,6 @@
                     <th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
                         Quantité
                     </th>
-                    <th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
-                        Montant Total
-                    </th>
                 </tr>
                 </thead>
                 <tbody class="[&_tr:last-child]:border-0">
@@ -91,18 +88,17 @@
                     <tr class="border-b transition-colors hover:bg-muted/50">
                         <td class="p-2 align-middle">{{ ligne.fraisforfait.libelle }}</td>
                         <td class="p-2 align-middle">{{ ligne.quantite }}</td>
-                        <td class="p-2 align-middle">{{ ligne.calculerTotal() }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
                 <tfoot class="border-t bg-muted/50 font-medium [&>tr]:last:border-b-0">
                 <tr>
-                    <td colspan="3" class="p-2">Total: {{ fiche_frais.ligneFraisForfaits|length }} records</td>
+                    <td colspan="2" class="p-2">Total: {{ fiche_frais.ligneFraisForfaits|length }} records</td>
                 </tr>
                 </tfoot>
             </table>
 
-            <table class="w-full text-sm caption-bottom mt-6">
+            <table class="w-full text-sm caption-bottom">
                 <thead class="[&_tr]:border-b">
                 <tr>
                     <th class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">
@@ -145,5 +141,6 @@
                 Ajouter Frais
             </button>
         </a>
+
     </div>
 {% endblock %}

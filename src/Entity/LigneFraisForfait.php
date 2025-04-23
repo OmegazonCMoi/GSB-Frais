@@ -64,11 +64,8 @@ class LigneFraisForfait
         return $this;
     }
 
-    public function calculerTotal(): ?float
+    public function getMontant(): ?float
     {
-        if ($this->fraisforfait && $this->quantite) {
-            return $this->quantite * $this->fraisforfait->getMontant();
-        }
-        return null;
+        return $this->fraisforfait->getMontant() * $this->quantite;
     }
 }

@@ -12,32 +12,74 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body class="dark:bg-neutral-900">
+<body class="bg-neutral-950">
 <!-- Navbar -->
-<nav class="text-white p-4">
-    <div class="max-w-7xl mx-auto flex items-center justify-around">
-        <!-- Left: Application Name -->
-        <div class="text-xl font-semibold">
-            <a href="/" class="hover:text-blue-300">GSB-Frais</a>
+<header class="inset-x-0 top-0 z-50 text-white">
+    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+            <a href="/" class="-m-1.5 p-1.5">
+                <span class="sr-only">GSB Frais</span>
+                <svg width="40" height="40" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0_119_275)"> <path d="M127.14 200C99.9942 200 99.9943 167.423 72.8487 167.423C41.6048 167.423 0 158.386 0 127.133C0 99.9885 32.5678 99.9885 32.5678 72.8445C32.5678 41.6139 41.6048 0 72.8602 0C100.006 0 100.006 32.5774 127.151 32.5774C158.384 32.5774 200 41.6139 200 72.8675C200 100.012 167.421 100.012 167.421 127.156C167.409 158.444 158.384 200 127.14 200Z" fill="url(#paint0_linear_119_275)"/> </g> <defs> <linearGradient id="paint0_linear_119_275" x1="100" y1="0" x2="100" y2="200" gradientUnits="userSpaceOnUse"> <stop stop-color="#DF99F7"/> <stop offset="1" stop-color="#FFDBB0"/> </linearGradient> <clipPath id="clip0_119_275"> <rect width="200" height="200" fill="white"/> </clipPath> </defs> </svg>
+            </a>
         </div>
-
-        <!-- Center: Navigation Links -->
-        <div class="space-x-4 hidden md:flex bg-neutral-800 bg-opacity-35 rounded-lg">
-            <a href="/" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/users' %}bg-neutral-700 rounded-lg{% endif %}">Users</a>
-            <a href="{{ path('app_fiche_frais_index') }}" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/fiche/frais' %}bg-neutral-700 rounded-lg{% endif %}">Fiche Frais</a>
-            <a href="/" class="py-2 px-4 hover:bg-neutral-800 hover:rounded-lg {% if app.request.pathinfo == '/profile' %}bg-neutral-700 rounded-lg{% endif %}">Profile</a>
+        <div class="flex lg:hidden">
+            <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+                <span class="sr-only">Open main menu</span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
         </div>
-
-
-        <!-- Right: Auth Links -->
-        <div class="space-x-2 hidden md:flex items-center bg-neutral-800 bg-opacity-35 rounded-lg">
-            <a href="/login" class="hover:bg-neutral-800 px-4 py-2 rounded-md">Connexion</a>
-            <p>|</p>
-            <a href="/register" class="hover:bg-neutral-800 px-4 py-2 rounded-md">Inscription</a>
+        <div class="hidden lg:flex lg:gap-x-12">
+            <a href="/" class="text-sm/6 font-semibold text-gray-200">Home</a>
+            <a href="#" class="text-sm/6 font-semibold text-gray-200">Users</a>
+            <a href="{{ path('app_fiche_frais_index') }}" class="text-sm/6 font-semibold text-gray-200">Fiches</a>
+            <a href="{{ path('app_top_visiteurs') }}" class="text-sm/6 font-semibold text-gray-200">Top</a>
+            {% if is_granted('ROLE_COMPTABLE') %}
+            <a href="{{ path('app_comptable') }}" class="text-sm/6 font-semibold text-gray-200">Comptable</a>
+            {% endif %}
+        </div>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+            {% if app.user %}
+                <a href="{{ path('app_profile') }}" class="text-sm/6 font-semibold text-gray-200">{{ app.user.nom }} {{ app.user.prenom }}</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="text-sm/6 font-semibold text-gray-200">Connexion</a>
+            {% endif %}
+        </div>
+    </nav>
+    <!-- Mobile menu, show/hide based on menu open state. -->
+    <div class="lg:hidden" role="dialog" aria-modal="true">
+        <!-- Background backdrop, show/hide based on slide-over state. -->
+        <div class="fixed inset-0 z-50"></div>
+        <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div class="flex items-center justify-between">
+                <a href="#" class="-m-1.5 p-1.5">
+                    <span class="sr-only">GSB Frais</span>
+                    <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="">
+                </a>
+                <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                    <span class="sr-only">Close menu</span>
+                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-6 flow-root">
+                <div class="-my-6 divide-y divide-gray-500/10">
+                    <div class="space-y-2 py-6">
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Product</a>
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Features</a>
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Company</a>
+                    </div>
+                    <div class="py-6">
+                        <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">Log in</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-
+</header>
 {% block body %}{% endblock %}
 </body>
 </html>

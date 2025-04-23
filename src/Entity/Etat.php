@@ -54,11 +54,11 @@ class Etat
         return $this->ficheFrais;
     }
 
-    public function addFicheFrai(FicheFrais $ficheFrai): static
+    public function addFicheFrais(FicheFrais $ficheFrais): static
     {
-        if (!$this->ficheFrais->contains($ficheFrai)) {
-            $this->ficheFrais->add($ficheFrai);
-            $ficheFrai->setEtat($this);
+        if (!$this->ficheFrais->contains($ficheFrais)) {
+            $this->ficheFrais->add($ficheFrais);
+            $ficheFrais->setEtat($this);
         }
 
         return $this;

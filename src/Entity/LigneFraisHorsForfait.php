@@ -27,6 +27,9 @@ class LigneFraisHorsForfait
     #[ORM\JoinColumn(nullable: false)]
     private ?FicheFrais $fichefrais = null;
 
+    #[ORM\Column]
+    private ?bool $validate = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,7 +55,6 @@ class LigneFraisHorsForfait
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
         return $this;
     }
 
@@ -64,7 +66,6 @@ class LigneFraisHorsForfait
     public function setMontant(string $montant): static
     {
         $this->montant = $montant;
-
         return $this;
     }
 
@@ -76,7 +77,17 @@ class LigneFraisHorsForfait
     public function setFichefrais(?FicheFrais $fichefrais): static
     {
         $this->fichefrais = $fichefrais;
+        return $this;
+    }
 
+    public function getIsValidate(): ?bool
+    {
+        return $this->validate;
+    }
+
+    public function setIsValidate(bool $validate): static
+    {
+        $this->validate = $validate;
         return $this;
     }
 }

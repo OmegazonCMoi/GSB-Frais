@@ -16,6 +16,17 @@ class FicheFraisRepository extends ServiceEntityRepository
         parent::__construct($registry, FicheFrais::class);
     }
 
+    public function findTopVisiteursMontants($mois): array  {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.mois = :mois')
+            ->setParameter('mois', $mois)
+            ->orderBy('f.montantValid', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return FicheFrais[] Returns an array of FicheFrais objects
     //     */
